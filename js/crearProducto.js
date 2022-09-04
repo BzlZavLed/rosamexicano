@@ -132,23 +132,27 @@ $(document).ready(function () {
       quality: 1,
     })
       .then(function (base64image) {
-        var doc = new jsPDF();
+        var doc = new jsPDF(); // libreria que genera el pdf.
         var width = doc.internal.pageSize.getWidth();
         var height = doc.internal.pageSize.getHeight();
+        if (size !=1){
         var countWidth = width / size;
         var countHeight = height / size;
+
+
         for (var i = 0; i < size; i++) {
           for (var j = 0; j < size; j++) {
-            doc.addImage(
-              base64image,
-              "PNG",
-              j * countWidth,
-              i * countHeight,
-              countWidth,
-              countHeight
-            );
-          }
+
+            doc.addImage(base64image,"PNG", j * countWidth, i * countHeight, countWidth,countHeight);
+            }
         }
+      }else{
+         doc.addImage(base64image,"PNG",10, 10,50, 50);
+         if (document.getElementById('precioCB').checked) {
+         doc.setFontSize(10);
+         doc.text(27, 63, "$" + precio);}
+       }
+       }
         doc.save("codigoProducto" + $("#pName").val() + ".pdf");
       })
       .catch(function (err) {
@@ -159,10 +163,14 @@ $(document).ready(function () {
   $(document).on("click", "#obtainCode", function () {
     var $row = $(this).closest("tr"); // Finds the closest row <tr>
     var prodCode = $row.find("td:nth-child(1)").text()
+    var precio2 = $row.find("td:nth-child(6)").text()
     JsBarcode("#codebarproduct", prodCode);
+    document.getElementById("precioUni").value = precio2;
+     //var cantIni = $("#cantInicial").val();
   });
 
   $(document).on("click", "#iident", function () {
+  document.getElementById("precioUni").value = "";
     var random = Math.floor(100000 + Math.random() * 900000);
     var stringcode = random.toString();
     $("#iident").val(random);
@@ -254,7 +262,7 @@ $(document).ready(function () {
               { title: "QR" },
             ],
           });
-          
+
         }
       },
     });

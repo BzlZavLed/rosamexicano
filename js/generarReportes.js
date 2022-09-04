@@ -169,7 +169,7 @@ $(document).on("click", "#generarRep1", function () {
                 var descs = 0;
                 var arrM = [];
                 if (resp.resp[0].message == 'nothing found') {
-                    //console.log(resp.resp[0].consulta);
+                    console.log(resp.resp[0].consulta);
                     swal("Alerta", "No hay movimientos", "warning");
                     if ($.fn.DataTable.isDataTable('#reportesTable1')) {
                         $('#reportesTable1').DataTable().destroy();
@@ -488,12 +488,15 @@ $(document).on("click", "#generarRep1", function () {
 
             },
             success: function (resp) {
-                document.getElementById("updtProds").style.display = "block";
 
+                document.getElementById("updtProds").style.display = "block";
+                    var size = $("#sizeCode").val();
+                    size = parseInt(size);
                 var arrM = [];
                 if (resp.resp[0].message == 'nothing found') {
                     swal("Alerta", "No hay movimientos", "warning");
                 } else {
+
 
                     for (i = 0; i < resp.resp.length; i++) {
                         var arrL = [];
@@ -507,7 +510,6 @@ $(document).on("click", "#generarRep1", function () {
                         var proveedor = resp.resp[i]["proveedor"];
                         var precio = resp.resp[i]["precio"];
                         var button = '<input type = "button" class = "btn btn-danger" id = "selectLine" value = "Seleccionar">';
-
                         arrL.push(ident);
                         arrL.push(existencia);
                         arrL.push(importe);
@@ -608,6 +610,7 @@ $(document).on("click", "#generarRep1", function () {
 
                 }
             }
+
         });//first ajax
 
 
@@ -1690,17 +1693,60 @@ $(document).on("click", "#myBtn", function () {
 
 });
 
+
 $(document).on("click", "#selectLine", function () {
     var $row = $(this).closest("tr"),        // Finds the closest row <tr> 
         $ident = $row.find("td:nth-child(1)"); // Finds the 2nd <td> element
 
 
-
+var id = ($row.find("td:nth-child(1)").text());
     $("#nomProd").val($row.find("td:nth-child(1)").text());
     $("#nCant").val($row.find("td:nth-child(2)").text());
     var cant = $row.find("td:nth-child(2)").text();
     var total = $row.find("td:nth-child(3)").text();
     precio = $row.find("td:nth-child(7)").text();
+    JsBarcode("#codebarproduct", id);
+
+    $(document).on("click", "#generatePdf", function () {
+
+    var size = $("#sizeCode").val();
+    size = parseInt(size);
+    SVGToImage({
+      svg: $("#codebarproduct").get(0),
+      mimetype: "image/png",
+      width: 500,
+      quality: 1,
+    })
+      .then(function (base64image) {
+        var doc = new jsPDF(); // libreria que genera el pdf.
+        var width = doc.internal.pageSize.getWidth();
+        var height = doc.internal.pageSize.getHeight();
+        if (size !=1){
+        var countWidth = width / size;
+        var countHeight = height / size;
+        var precioCB = $("#precioCB").val();
+        for (var i = 0; i < size; i++) {
+          for (var j = 0; j < size; j++) {
+
+            doc.addImage(base64image,"PNG", j * countWidth, i * countHeight, countWidth,countHeight);
+            doc.setFontSize(10);
+            doc.text( 27,  63, "$" + precio);
+            }
+        }
+      }else{
+         doc.addImage(base64image,"PNG",10, 10,50, 50);
+        if (document.getElementById('precioCB').checked) {
+         doc.setFontSize(10);
+         doc.text(27, 63, "$" + precio);}
+       }
+        doc.save("codigoProducto" + $("#pName").val() + ".pdf");
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+  });
+
+
 
 
 
