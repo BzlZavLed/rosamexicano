@@ -55,7 +55,8 @@ foreach(selectMultipleRows($conn, $cajaventas) as $row)
 }
     if(!(empty($array))) // If something was fetched
     {
-        while(list($key, $value) = each($array))
+        //while(list($key, $value) = each($array))
+        foreach($array as $key=>$value)
         {
              $json[] = array
              (

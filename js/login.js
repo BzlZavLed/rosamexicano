@@ -58,6 +58,7 @@ $(document).on('click', '#mainLogin', function () {
                     console.log(resp);
                 },
                 success: function (resp) {
+                    console.log(resp);
                     if (resp.return == 1) {
                         location.href = "main2.php"
                     } else {

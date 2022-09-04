@@ -169,7 +169,7 @@ $(document).on("click", "#generarRep1", function () {
                 var descs = 0;
                 var arrM = [];
                 if (resp.resp[0].message == 'nothing found') {
-                    console.log(resp.resp[0].consulta);
+                    //console.log(resp.resp[0].consulta);
                     swal("Alerta", "No hay movimientos", "warning");
                     if ($.fn.DataTable.isDataTable('#reportesTable1')) {
                         $('#reportesTable1').DataTable().destroy();
