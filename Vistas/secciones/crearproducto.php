@@ -1,4 +1,8 @@
-
+<style type="text/css">
+	tfoot input {
+		width: 100%;
+	}
+</style>
 <div id="myModal" class="modal fade" role="dialog">
 	<div class="modal-dialog modal-xl">
 
@@ -81,24 +85,35 @@
 				<label for="precioUni">Cantidad inicial</label>
 				<input type="number" id="cantInicial" placeholder="Cantidad inicial" class="form-control">
 			</div>
-			<svg id="codebarproduct"></svg>
+			
 		</div>
- 		<hr>
-			<button type="button" id="updtProd" class="btn btn-default">Actualizar Producto</button>
-			<button type="button" id="cons" class="btn btn-default">Consulta</button><br><br>
-			<button type="button" id="ingresar" class="btn btn-primary">Crear producto</button>
-			<button type="button" id="delProd" class="btn btn-danger">Eliminar Producto</button><br><br>
+		<div class="col-sm-3">
+				<button type="button" id="updtProd" class="btn btn-default">Actualizar Producto</button>
+				<button type="button" id="cons" class="btn btn-default">Consulta</button><br><br>
+				<button type="button" id="ingresar" class="btn btn-primary">Crear producto</button>
+				<button type="button" id="delProd" class="btn btn-danger">Eliminar Producto</button><br><br>
+			</div>
+		<hr>
+
+
+
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
 			<label>Tamaño de código de barras</label>
 			<select name="sizeCode" id="sizeCode" class="form-control">
 				<option value="12">Chico</option>
 				<option value="10">Medio</option>
 				<option value="8">Grande</option>
-				<option value="1">Unico</option> <!-- UN SOLO CODIGO EN EL PDF  ESTA SECCION ES LO QUE SE MUEVE A INVENTARIO -->
+				<option value="1" selected>Unico</option>
 			</select>
-			<button type="button" id="generatePdf" class="btn btn-success">Generar PDF</button>
+			<input type="checkbox" name="precioCB" id="precioCB">Incluir precio <br>
+			<button type="button" id="generatePdf" class="btn btn-success" style="display:none">Generar PDF</button>
 
 		</div>
-
+		<div class="col-sm-3">
+			<svg id="codebarproduct"></svg>
+		</div>
 	</div>
 	<div class="row">
 		<div id="tablaCuentas" class="table-responsive">
@@ -111,8 +126,11 @@
 		<div class="col-md-4">
 			<label>Subir archivo de productos</label>
 			<input type="file" name="employee_file" id="employee_file" style="margin-top:15px;" />
-			<input type="button" name="upload" id="upload" value="Subir archivo" style="margin-top:10px;" class="btn btn-info" />
+			<input type="button" name="upload" id="upload" value="Subir archivo" style="margin-top:10px;"
+				class="btn btn-info" />
 		</div>
 	</div> <!-- /.row -->
+</div>
+
 </div>
 <script src="../../js/crearProducto.js"></script>

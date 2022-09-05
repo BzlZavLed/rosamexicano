@@ -124,6 +124,7 @@ $(document).ready(function () {
 
   $(document).on("click", "#generatePdf", function () {
     var size = $("#sizeCode").val();
+    var precio = document.getElementById("precioUni").value;
     size = parseInt(size);
     SVGToImage({
       svg: $("#codebarproduct").get(0),
@@ -138,12 +139,15 @@ $(document).ready(function () {
         if (size !=1){
         var countWidth = width / size;
         var countHeight = height / size;
-
-
+        var inicial = countWidth/2;
         for (var i = 0; i < size; i++) {
           for (var j = 0; j < size; j++) {
-
             doc.addImage(base64image,"PNG", j * countWidth, i * countHeight, countWidth,countHeight);
+            if (document.getElementById("precioCB").checked) {
+              doc.setFontSize(6);
+              doc.text(inicial, i * countHeight, "$" + precio);
+              inicial += countWidth;
+            }
             }
         }
       }else{
@@ -152,7 +156,7 @@ $(document).ready(function () {
          doc.setFontSize(10);
          doc.text(27, 63, "$" + precio);}
        }
-       }
+       
         doc.save("codigoProducto" + $("#pName").val() + ".pdf");
       })
       .catch(function (err) {
@@ -162,19 +166,23 @@ $(document).ready(function () {
 
   $(document).on("click", "#obtainCode", function () {
     var $row = $(this).closest("tr"); // Finds the closest row <tr>
-    var prodCode = $row.find("td:nth-child(1)").text()
-    var precio2 = $row.find("td:nth-child(6)").text()
+    var prodCode = $row.find("td:nth-child(1)").text();
+    var name = $row.find("td:nth-child(2)").text();
+    var precio2 = $row.find("td:nth-child(6)").text();
+    document.getElementById("generatePdf").style.display = "block";
     JsBarcode("#codebarproduct", prodCode);
     document.getElementById("precioUni").value = precio2;
-     //var cantIni = $("#cantInicial").val();
+    document.getElementById("pName").value = name;
   });
 
+    
   $(document).on("click", "#iident", function () {
   document.getElementById("precioUni").value = "";
     var random = Math.floor(100000 + Math.random() * 900000);
     var stringcode = random.toString();
     $("#iident").val(random);
     JsBarcode("#codebarproduct", stringcode);
+    document.getElementById("generatePdf").style.display = "block";
   });
 
   $(document).on("click", "#cons", function () {
