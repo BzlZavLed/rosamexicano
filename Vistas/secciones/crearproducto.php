@@ -83,8 +83,7 @@
 			</div>
 			<svg id="codebarproduct"></svg>
 		</div>
-		<div class="col-lg-3">
-		<hr>
+ 		<hr>
 			<button type="button" id="updtProd" class="btn btn-default">Actualizar Producto</button>
 			<button type="button" id="cons" class="btn btn-default">Consulta</button><br><br>
 			<button type="button" id="ingresar" class="btn btn-primary">Crear producto</button>
@@ -94,6 +93,7 @@
 				<option value="12">Chico</option>
 				<option value="10">Medio</option>
 				<option value="8">Grande</option>
+				<option value="1">Unico</option> <!-- UN SOLO CODIGO EN EL PDF  ESTA SECCION ES LO QUE SE MUEVE A INVENTARIO -->
 			</select>
 			<button type="button" id="generatePdf" class="btn btn-success">Generar PDF</button>
 
@@ -103,7 +103,7 @@
 	<div class="row">
 		<div id="tablaCuentas" class="table-responsive">
 			<table class="table tblpol" id="prodsTable">
-				
+
 			</table>
 		</div>
 	</div> <!-- /.row -->

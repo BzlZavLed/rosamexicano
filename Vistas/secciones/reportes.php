@@ -140,6 +140,19 @@
                              <input type="button" id="actProd" class="btn btn-default" value="Actualizar">
                            
                        </div><br>
+                            <div class="col-lg-3">
+                                <svg id="codebarproduct"></svg>
+                                    <select name="sizeCode" id="sizeCode" class="form-control">
+                                        <option value="12">Chico</option>
+                                        <option value="10">Medio</option>
+                                        <option value="8">Grande</option>
+                                        <option value="1">Unico</option> <!-- UN SOLO CODIGO EN EL PDF  ESTA SECCION ES LO QUE SE MUEVE A INVENTARIO -->
+                                    </select>
+                                        <button type="button" id="generatePdf" class="btn btn-success">Generar PDF</button><br>
+                                        <label for="precioCB">Incluir precio </label>
+                                         <input type="checkbox" name="precioCB" id="precioCB" >
+</div>
+
                   <div id = "tablaReportes3" class="table-responsive">
                           <table class="table tblpol" id = "inventario">
                           
